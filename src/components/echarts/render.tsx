@@ -29,6 +29,7 @@ import {
   // SVGRenderer,
 } from 'echarts/renderers';
 import MyCustomTheme from '../../echartsThemes/my_custom.json';
+import {useEffect} from "react";
 // Register the required components
 echarts.use(
   [LineChart, BarChart, CanvasRenderer]
@@ -45,11 +46,16 @@ const Render = (props: RenderProps) => {
   const { type,
     theme = 'light',
     option, styles, wrapperStyles } = props;
+  useEffect(() => {
+    console.log('option change:', option)
+  }, [option]);
   return (
     <div style={wrapperStyles}>
       <ReactEChartsCore
+        notMerge={true}
+        lazyUpdate={false}
         echarts={echarts}
-        style={{ height: 300, width: 800, ...styles }}
+        style={{ height: '100%', width: '100%', ...styles }}
         option={option}
         theme={theme}
       />
